@@ -19,12 +19,21 @@ doforgenome <- function(gname, gpath){
 	}, mc.cores=22)
 	svesve <- do.call("rbind",sve)
 	sve <- melt(svesve,id.vars=c("ispred","seqid"), variable.name="iza", value.name="percentage")
-	ggplot(sve, aes(iza, percentage))+stat_boxplot(geom="errorbar")+facet_grid(ispred~.)+theme_light()+geom_boxplot(outlier.color=NA)+xlab("Nucleotide after")+geom_hline(yintercept=0.25,col="red")+coord_flip()+ggtitle(gname)
+	ggplot(sve, aes(iza, percentage))+
+	stat_boxplot(geom="errorbar")+
+	facet_grid(ispred~.)+
+	theme_light()+
+	+coord_cartesian(ylim=c(0,0.6))+
+	geom_boxplot(outlier.color=NA)+
+	xlab("Nucleotide after")+
+	geom_hline(yintercept=0.25,col="red")+
+	coord_flip()+
+	ggtitle(gname)
 }
 eunapius <- doforgenome("Eunapius", "EsuV4polished.fasta")
 suberites <- doforgenome("Suberites", "Sub_repilonwtdbg.fasta")
 ephydatia <- doforgenome("Ephydatia", "Emu_Illumina_out.padded.fasta")
 
 pdf("assembledGenomes.pdf")
-multiplot(eunapius, suberites, ephydatia, ncol=3)
+multiplot(eunapius, suberites, ephydatia, cols=3)
 dev.off()
