@@ -23,7 +23,7 @@ doforgenome <- function(gname, gpath){
 	stat_boxplot(geom="errorbar")+
 	facet_grid(ispred~.)+
 	theme_light()+
-	+coord_cartesian(ylim=c(0,0.6))+
+	coord_cartesian(ylim=c(0,0.6))+
 	geom_boxplot(outlier.color=NA)+
 	xlab("Nucleotide after")+
 	geom_hline(yintercept=0.25,col="red")+
@@ -34,6 +34,7 @@ eunapius <- doforgenome("Eunapius", "EsuV4polished.fasta")
 suberites <- doforgenome("Suberites", "Sub_repilonwtdbg.fasta")
 ephydatia <- doforgenome("Ephydatia", "Emu_Illumina_out.padded.fasta")
 
-pdf("assembledGenomes.pdf")
+pdf("assembledGenomes.pdf", width=12, height=5)
 multiplot(eunapius, suberites, ephydatia, cols=3)
 dev.off()
+
